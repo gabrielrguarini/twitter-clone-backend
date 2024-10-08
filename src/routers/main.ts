@@ -2,7 +2,13 @@ import { Router } from "express";
 import { ping, privatePing } from "../controllers/ping";
 import { singin, singup } from "../controllers/auth";
 import { verifyJWT } from "../utils/jwt";
-import { addTweet } from "../controllers/tweet";
+import {
+  addTweet,
+  getAnswers,
+  getTweet,
+  likeToggle,
+} from "../controllers/tweet";
+import { getUser } from "../controllers/user";
 
 export const mainRouter = Router();
 
@@ -13,13 +19,13 @@ mainRouter.post("/auth/singup", singup);
 mainRouter.post("/auth/singin", singin);
 
 mainRouter.post("/tweet", verifyJWT, addTweet);
-// mainRouter.get("/tweet/:id");
-// mainRouter.get("/tweet/:id/answers");
-// mainRouter.post("/tweet/:id/like");
+mainRouter.get("/tweet/:id", verifyJWT, getTweet);
+mainRouter.get("/tweet/:id/answers", verifyJWT, getAnswers);
+mainRouter.post("/tweet/:id/like", verifyJWT, likeToggle);
 
-// mainRouter.get("user/:slug");
-// mainRouter.get("user/:slug/tweets");
-// mainRouter.post("user/:slug/follow");
+mainRouter.get("/user/:slug", verifyJWT, getUser);
+// mainRouter.get("/user/:slug/tweets");
+// mainRouter.post("/user/:slug/follow");
 // mainRouter.put("/user");
 // mainRouter.put("/user/avatar");
 // mainRouter.put("/user/cover");

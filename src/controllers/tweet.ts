@@ -1,6 +1,13 @@
 import { addTweetSchema } from "../schemas/add-tweet";
 import { addHashtag } from "../services/trends";
-import { createTweet, findTweet } from "../services/tweet";
+import {
+  checkIfTweetIsLikedByUser,
+  createTweet,
+  findAnswersFromTweet,
+  findTweet,
+  likeTweet,
+  unlikeTweet,
+} from "../services/tweet";
 import { ExtendedRequest } from "../types/extended-request";
 import { Response } from "express";
 
@@ -33,4 +40,36 @@ export const addTweet = async (req: ExtendedRequest, res: Response) => {
     }
   }
   res.json({ tweet: newTweet });
+};
+
+export const getTweet = async (req: ExtendedRequest, res: Response) => {
+  const { id } = req.params;
+
+  const tweet = await findTweet(parseInt(id));
+  if (!tweet) {
+    res.json({ error: "Tweet não encontrado" });
+    return;
+  }
+  res.json({ tweet });
+};
+
+export const getAnswers = async (req: ExtendedRequest, res: Response) => {
+  const { id } = req.params;
+
+  const answers = await findAnswersFromTweet(parseInt(id));
+
+  res.json({ answers });
+};
+
+export const likeToggle = async (req: ExtendedRequest, res: Response) => {
+  const { id } = req.params;
+
+  const liked = await checkIfTweetIsLikedByUser(req.userSlug, parseInt(id));
+
+  if (liked) {
+    await unlikeTweet(req.userSlug, parseInt(id));
+  } else {
+    await likeTweet(req.userSlug, parseInt(id));
+  }
+  res.status(200).json({ success: true });
 };

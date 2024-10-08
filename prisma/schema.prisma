@@ -46,9 +46,9 @@ model TweetLike {
 }
 
 model Follow {
-  id    Int @id @default(autoincrement())
-  user1 Int
-  user2 Int
+  id        Int    @id @default(autoincrement())
+  user1Slug String
+  user2Slug String
 }
 
 model Trend {
