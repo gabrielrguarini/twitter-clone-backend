@@ -20,7 +20,7 @@ model User {
   name     String
   avatar   String      @default("default.jpg")
   cover    String      @default("default.jpg")
-  bit      String?
+  bio      String?
   link     String?
   tweets   Tweet[]
   likes    TweetLike[]
