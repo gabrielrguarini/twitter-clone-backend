@@ -1,16 +1,18 @@
 import { Router } from "express";
-import { ping } from "../controllers/ping";
+import { ping, privatePing } from "../controllers/ping";
 import { singin, singup } from "../controllers/auth";
+import { verifyJWT } from "../utils/jwt";
+import { addTweet } from "../controllers/tweet";
 
 export const mainRouter = Router();
 
 mainRouter.get("/ping", ping);
-// mainRouter.get("/privateping");
+mainRouter.get("/privateping", verifyJWT, privatePing);
 
 mainRouter.post("/auth/singup", singup);
 mainRouter.post("/auth/singin", singin);
 
-// mainRouter.post("/tweet");
+mainRouter.post("/tweet", verifyJWT, addTweet);
 // mainRouter.get("/tweet/:id");
 // mainRouter.get("/tweet/:id/answers");
 // mainRouter.post("/tweet/:id/like");
