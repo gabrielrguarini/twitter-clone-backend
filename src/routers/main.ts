@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ping } from "../controllers/ping";
-import { singup } from "../controllers/auth";
+import { singin, singup } from "../controllers/auth";
 
 export const mainRouter = Router();
 
@@ -8,7 +8,7 @@ mainRouter.get("/ping", ping);
 // mainRouter.get("/privateping");
 
 mainRouter.post("/auth/singup", singup);
-// mainRouter.post("/auth/singin");
+mainRouter.post("/auth/singin", singin);
 
 // mainRouter.post("/tweet");
 // mainRouter.get("/tweet/:id");
