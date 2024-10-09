@@ -15,6 +15,9 @@ import {
   updateUser,
 } from "../controllers/user";
 import { getFeed } from "../controllers/feed";
+import { searchTweets } from "../controllers/search";
+import { getTrends } from "../controllers/trend";
+import { getSuggestions } from "../controllers/suggestions";
 
 export const mainRouter = Router();
 
@@ -37,6 +40,6 @@ mainRouter.put("/user", verifyJWT, updateUser);
 // mainRouter.put("/user/cover");
 
 mainRouter.get("/feed", verifyJWT, getFeed);
-// mainRouter.get("/search");
-// mainRouter.get("/trending");
-// mainRouter.get("/suggestions");
+mainRouter.get("/search", verifyJWT, searchTweets);
+mainRouter.get("/trending", verifyJWT, getTrends);
+mainRouter.get("/suggestions", verifyJWT, getSuggestions);
