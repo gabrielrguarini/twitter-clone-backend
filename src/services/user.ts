@@ -129,3 +129,15 @@ export const updatePassword = async (slug: string, password: string) => {
     },
   });
 };
+
+export const updateUserInfo = async (
+  slug: string,
+  data: Prisma.UserUpdateInput
+) => {
+  const user = await prisma.user.update({
+    where: {
+      slug,
+    },
+    data,
+  });
+};

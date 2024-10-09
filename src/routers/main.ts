@@ -35,7 +35,7 @@ mainRouter.put("/user", verifyJWT, updateUser);
 // mainRouter.put("/user/avatar");
 // mainRouter.put("/user/cover");
 
-// mainRouter.get("/feed");
+mainRouter.get("/feed");
 // mainRouter.get("/search");
 // mainRouter.get("/trending");
 // mainRouter.get("/suggestions");
