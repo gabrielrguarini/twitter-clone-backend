@@ -14,6 +14,7 @@ import {
   getUserTweets,
   updateUser,
 } from "../controllers/user";
+import { getFeed } from "../controllers/feed";
 
 export const mainRouter = Router();
 
@@ -35,7 +36,7 @@ mainRouter.put("/user", verifyJWT, updateUser);
 // mainRouter.put("/user/avatar");
 // mainRouter.put("/user/cover");
 
-mainRouter.get("/feed");
+mainRouter.get("/feed", verifyJWT, getFeed);
 // mainRouter.get("/search");
 // mainRouter.get("/trending");
 // mainRouter.get("/suggestions");
