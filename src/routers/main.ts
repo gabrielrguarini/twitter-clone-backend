@@ -8,7 +8,12 @@ import {
   getTweet,
   likeToggle,
 } from "../controllers/tweet";
-import { getUser } from "../controllers/user";
+import {
+  followToggle,
+  getUser,
+  getUserTweets,
+  updateUser,
+} from "../controllers/user";
 
 export const mainRouter = Router();
 
@@ -24,9 +29,9 @@ mainRouter.get("/tweet/:id/answers", verifyJWT, getAnswers);
 mainRouter.post("/tweet/:id/like", verifyJWT, likeToggle);
 
 mainRouter.get("/user/:slug", verifyJWT, getUser);
-// mainRouter.get("/user/:slug/tweets");
-// mainRouter.post("/user/:slug/follow");
-// mainRouter.put("/user");
+mainRouter.get("/user/:slug/tweets", verifyJWT, getUserTweets);
+mainRouter.post("/user/:slug/follow", verifyJWT, followToggle);
+mainRouter.put("/user", verifyJWT, updateUser);
 // mainRouter.put("/user/avatar");
 // mainRouter.put("/user/cover");
 

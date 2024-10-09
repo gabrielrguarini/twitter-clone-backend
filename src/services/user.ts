@@ -72,3 +72,60 @@ export const getUserTweetCount = async (slug: string) => {
   });
   return count;
 };
+
+export const checkIfFollows = async (user1Slug: string, user2Slug: string) => {
+  const follows = await prisma.follow.findFirst({
+    where: {
+      user1Slug,
+      user2Slug,
+    },
+  });
+  return follows ? true : false;
+};
+
+export const follow = async (user1Slug: string, user2Slug: string) => {
+  await prisma.follow.create({
+    data: {
+      user1Slug,
+      user2Slug,
+    },
+  });
+};
+
+export const unFollow = async (user1Slug: string, user2Slug: string) => {
+  await prisma.follow.deleteMany({
+    where: {
+      user1Slug,
+      user2Slug,
+    },
+  });
+};
+
+export const updateUser = async (
+  slug: string,
+  data: Prisma.UserUpdateInput
+) => {
+  const updatedUser = await prisma.user.update({
+    where: {
+      slug,
+    },
+    data,
+  });
+  return {
+    ...updatedUser,
+    avatar: getPublicURL(updatedUser.avatar),
+    cover: getPublicURL(updatedUser.cover),
+  };
+};
+
+export const updatePassword = async (slug: string, password: string) => {
+  const hashPassword = await hash(password, 10);
+  await prisma.user.update({
+    where: {
+      slug,
+    },
+    data: {
+      password: hashPassword,
+    },
+  });
+};
